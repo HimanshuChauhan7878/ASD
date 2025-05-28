@@ -1,10 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
 import { useNavigate } from 'react-router-dom';
 import { checkSystemRequirements } from '../../utils/setupChecks';
 
 const EyeTrackingGame: React.FC = () => {
+  const location = useLocation();
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (location.state?.autoStart && !isPlaying) {
+      startGame();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [eyeContactData, setEyeContactData] = useState<number[]>([]);

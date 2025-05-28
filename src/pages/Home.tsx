@@ -23,19 +23,19 @@ export function Home() {
             title="Emotion Detection Game"
             description="Test your ability to recognize and understand different emotional expressions."
             imageUrl="/emotion.png"
-            onPlay={() => navigate('/emotion-game')}
+            onPlay={() => navigate('/emotion-game', { state: { autoStart: true } })}
           />
           <GameCard
             title="Gesture Recognition Game"
             description="Challenge your gesture recognition skills with various gestures."
             imageUrl="/gesture.png"
-            onPlay={() => navigate('/shape-game')}
+            onPlay={() => navigate('/shape-game', { state: { autoStart: true } })}
           />
           <GameCard
             title="Color Identification Game"
             description="Improve your ability to identify and distinguish different colors."
             imageUrl="/colour.png"
-            onPlay={() => navigate('/color-game')}
+            onPlay={() => navigate('/color-game', { state: { autoStart: true } })}
           />
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
             <img 

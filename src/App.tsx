@@ -4,8 +4,9 @@ import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
 import { Test } from './pages/Test';
-import { EmotionGame } from './pages/EmotionGame';
+import EmotionGame from './pages/EmotionGame';
 import { ShapeGame } from './pages/ShapeGame';
+import ColorGame from './pages/ColorGame';
 import { LogIn, UserPlus } from 'lucide-react';
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="/test" element={<Test />} />
           <Route path="/emotion-game" element={<EmotionGame />} />
           <Route path="/shape-game" element={<ShapeGame />} />
+          <Route path="/color-game" element={<ColorGame />} />
         </Routes>
       </div>
     </Router>

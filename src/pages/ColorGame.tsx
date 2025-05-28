@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 
-export function ShapeGame() {
+const ColorGame = () => {
   const location = useLocation();
   const [isRunning, setIsRunning] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const startGame = async () => {
+  const startGame = useCallback(async () => {
     try {
       setError(null);
       setIsRunning(true);
 
-      // Send request to Flask server to start gesture recognition
-      const response = await fetch("http://127.0.0.1:5001/run", {
+      // Send request to Flask server to start color recognition
+      const response = await fetch("http://127.0.0.1:5003/run", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ script: "gesture.py" }),
+        body: JSON.stringify({ script: "colour.py" }),
       });
 
       const data = await response.json();
@@ -26,28 +26,21 @@ export function ShapeGame() {
         throw new Error(data.error || "Failed to start the game.");
       }
 
-      console.log("Gesture game started!");
+      console.log("Color game started!");
     } catch (err) {
-      setError(err.message);
+      setError(err instanceof Error ? err.message : "Failed to start the game");
       setIsRunning(false);
     }
-  };
-
-  useEffect(() => {
-    if (location.state?.autoStart && !isRunning) {
-      startGame();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.state]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full">
         <h1 className="text-3xl font-bold text-center mb-8">
-          Gesture Recognition Game
+          Color Identification Game
         </h1>
         <p className="text-gray-600 text-center mb-8">
-          Click "Play" to start the Gesture Recognition Game.
+          Click "Play" to start the Color Identification Game.
         </p>
 
         {error && <p className="text-red-500 text-center">{error}</p>}
@@ -66,4 +59,6 @@ export function ShapeGame() {
       </div>
     </div>
   );
-}
+};
+
+export default ColorGame; 

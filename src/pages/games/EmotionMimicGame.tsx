@@ -1,14 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
 
 const emotions = ['happy', 'sad', 'angry', 'surprised'];
 
 const EmotionMimicGame: React.FC = () => {
+  const location = useLocation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentEmotion, setCurrentEmotion] = useState<string>('');
   const [score, setScore] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [emotionDetections, setEmotionDetections] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (location.state?.autoStart && !isPlaying) {
+      startGame();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state]);
 
   useEffect(() => {
     const loadModels = async () => {

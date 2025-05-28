@@ -40,7 +40,7 @@ const GameLauncher: React.FC = () => {
               <p>Duration: {game.duration}</p>
             </div>
             <button
-              onClick={() => navigate(game.path)}
+              onClick={() => navigate(game.path, { state: { autoStart: true } })
               className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
             >
               Start Game
