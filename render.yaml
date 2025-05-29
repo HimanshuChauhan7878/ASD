@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: main-server
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn server:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+
+  - type: web
+    name: colour-server
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python colour.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+
+  - type: web
+    name: gesture-server
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python gesture_server.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0 
